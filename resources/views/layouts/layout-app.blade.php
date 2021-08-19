@@ -9,10 +9,16 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles
 </head>
-<body>
-    
-    {{ $slot }}
+<body class="overflow-hidden bg-gray-100 antialiased">
+
+    <livewire:navbar />
+    <x-button-added-formulir />
+
+    <div class="py-4">
+        {{ $slot }}
+    </div>
 
     @livewireScripts
+    <script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
 </body>
 </html>
