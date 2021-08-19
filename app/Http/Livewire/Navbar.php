@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class Navbar extends Component
@@ -48,7 +50,43 @@ class Navbar extends Component
     }
 
     public function handleForm(){
-        $this->validate();
+        $data = $this->validate();
+
+        if($this->isForm == 'Login'){
+            if(auth()->attempt($data, $this->remember)){
+                session()->regenerate();
+
+                return redirect('/');
+            }
+
+            $this->addError('login-error', 'Something wrong, check your creadential again!');
+            $this->password = '';
+        }else if($this->isForm == 'Register'){
+            $user = User::create([
+                'username' => $this->username,
+                'name' => $this->name,
+                'email' => $this->email,
+                'password' => Hash::make($this->password)
+            ]);
+
+            session()->flash('register-success', 'Register success, please login');
+            $this->isModal = true;
+            $this->isForm = 'Login';
+
+            $this->email = $user->email;
+            $this->password = $this->password;
+        }
+
+    }
+
+    public function logout(){
+        auth()->logout();
+
+        session()->invalidate();
+
+        session()->regenerateToken();
+
+        return redirect('/');
     }
 
     public function render()
