@@ -1,4 +1,3 @@
-<x-layout-app>
     <div class="w-full h-auto relative">
         @auth
         <div class="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl mx-auto px-4 lg:px-6">
@@ -35,4 +34,3 @@
         </div>
         @endauth
     </div>
-</x-layout-app>

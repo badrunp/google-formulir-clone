@@ -47,7 +47,7 @@
                                                 <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd" />
                                             </svg>
                                         </div>
-                                        Logout
+                                        Logout<span class="inline-block" wire:loading wire:target="logout">...</span>
                                     </button>
                                 </li>
                             </ul>
@@ -231,8 +231,10 @@
                 <div class="w-full h-10 bg-gray-200 rounded animate-pulse"></div>
             </div>
             <div class="pt-4 pb-6 px-6 border-t" wire:loading.remove wire:target="resetAll">
-                <x-button class="w-full" wire:click="handleForm" x-text="isForm"></x-button>
-                <x-button class="w-full" wire:click="handleForm" wire:loading wire:target="handleForm">...</x-button>
+                <x-button class="w-full" wire:click="handleForm">
+                    <span x-show="isForm == 'Login'" class="inline-block">Login<span class="inline-block" wire:loading wire:target="handleForm">...</span></span> 
+                    <span x-show="isForm == 'Register'" class="inline-block">Register<span class="inline-block" wire:loading wire:target="handleForm">...</span></span> 
+                </x-button>
             </div>
         </x-slot>
     </x-modal-auth>
