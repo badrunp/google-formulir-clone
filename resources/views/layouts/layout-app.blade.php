@@ -7,6 +7,7 @@
     <title>{{ $title ?? "Google Formulir" }}</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     @livewireStyles
     @stack('styles')
 </head>
@@ -14,7 +15,7 @@
 
     <livewire:navbar />
 
-    <div class="py-4">
+    <div class="py-4 mt-16">
         {{ $slot }}
     </div>
 

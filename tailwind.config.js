@@ -18,7 +18,8 @@ module.exports = {
     extend: {
       transform: ['hover', 'group-hover'],
       rotate: ['hover', 'group-hover'],
-      borderWidth: ['hover', 'focus']
+      borderWidth: ['hover', 'focus'],
+      borderStyle: ['focus'],
     },
   },
   plugins: [

@@ -1,9 +1,9 @@
-<nav>
-    <div class="relative w-full h-auto">
+<nav class="fixed w-full h-auto top-0 left-0 z-50">
+    <div class="relative">
         <div class="bg-white shadow-sm py-3">
             <div class="container mx-auto">
                 <div class="w-full flex flex-row items-center justify-between">
-                    <a href="#" class="flex flex-row items-center text-gray-600 space-x-2">
+                    <a href="{{ route('formulir.home') }}" class="flex flex-row items-center text-gray-600 space-x-2">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

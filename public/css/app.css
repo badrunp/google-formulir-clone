@@ -13636,6 +13636,26 @@ select {
   border-style: none;
 }
 
+.focus\:border-solid:focus {
+  border-style: solid;
+}
+
+.focus\:border-dashed:focus {
+  border-style: dashed;
+}
+
+.focus\:border-dotted:focus {
+  border-style: dotted;
+}
+
+.focus\:border-double:focus {
+  border-style: double;
+}
+
+.focus\:border-none:focus {
+  border-style: none;
+}
+
 .border-transparent {
   border-color: transparent;
 }
@@ -45411,6 +45431,26 @@ select {
     border-style: none;
   }
 
+  .sm\:focus\:border-solid:focus {
+    border-style: solid;
+  }
+
+  .sm\:focus\:border-dashed:focus {
+    border-style: dashed;
+  }
+
+  .sm\:focus\:border-dotted:focus {
+    border-style: dotted;
+  }
+
+  .sm\:focus\:border-double:focus {
+    border-style: double;
+  }
+
+  .sm\:focus\:border-none:focus {
+    border-style: none;
+  }
+
   .sm\:border-transparent {
     border-color: transparent;
   }
@@ -77171,6 +77211,26 @@ select {
   }
 
   .md\:border-none {
+    border-style: none;
+  }
+
+  .md\:focus\:border-solid:focus {
+    border-style: solid;
+  }
+
+  .md\:focus\:border-dashed:focus {
+    border-style: dashed;
+  }
+
+  .md\:focus\:border-dotted:focus {
+    border-style: dotted;
+  }
+
+  .md\:focus\:border-double:focus {
+    border-style: double;
+  }
+
+  .md\:focus\:border-none:focus {
     border-style: none;
   }
 
@@ -108937,6 +108997,26 @@ select {
     border-style: none;
   }
 
+  .lg\:focus\:border-solid:focus {
+    border-style: solid;
+  }
+
+  .lg\:focus\:border-dashed:focus {
+    border-style: dashed;
+  }
+
+  .lg\:focus\:border-dotted:focus {
+    border-style: dotted;
+  }
+
+  .lg\:focus\:border-double:focus {
+    border-style: double;
+  }
+
+  .lg\:focus\:border-none:focus {
+    border-style: none;
+  }
+
   .lg\:border-transparent {
     border-color: transparent;
   }
@@ -140700,6 +140780,26 @@ select {
     border-style: none;
   }
 
+  .xl\:focus\:border-solid:focus {
+    border-style: solid;
+  }
+
+  .xl\:focus\:border-dashed:focus {
+    border-style: dashed;
+  }
+
+  .xl\:focus\:border-dotted:focus {
+    border-style: dotted;
+  }
+
+  .xl\:focus\:border-double:focus {
+    border-style: double;
+  }
+
+  .xl\:focus\:border-none:focus {
+    border-style: none;
+  }
+
   .xl\:border-transparent {
     border-color: transparent;
   }
@@ -172460,6 +172560,26 @@ select {
   }
 
   .\32xl\:border-none {
+    border-style: none;
+  }
+
+  .\32xl\:focus\:border-solid:focus {
+    border-style: solid;
+  }
+
+  .\32xl\:focus\:border-dashed:focus {
+    border-style: dashed;
+  }
+
+  .\32xl\:focus\:border-dotted:focus {
+    border-style: dotted;
+  }
+
+  .\32xl\:focus\:border-double:focus {
+    border-style: double;
+  }
+
+  .\32xl\:focus\:border-none:focus {
     border-style: none;
   }
 

@@ -6,9 +6,9 @@
             </div>
             <div class="w-full h-auto my-4">
                 <div class="grid grid-cols-3 gap-6">
-                    <a href="{{ route('formulir.store') }}" class="bg-white shadow px-4 py-3 rounded-md">
+                    <a href="{{ route('formulir.store') }}" class="bg-gray-300 shadow px-4 py-3 rounded-md hover:bg-gray-400 hover:bg-opacity-60 transition ease-out duration-150">
                         <div class="flex items-center flex-row w-full h-full justify-center">
-                            <div class="text-gray-400 p-4 rounded-full bg-gray-50">
+                            <div class="text-gray-500 p-4 rounded-full bg-gray-50">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                                 </svg>

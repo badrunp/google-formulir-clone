@@ -8,17 +8,33 @@ class Formulir extends Component
 {
 
     public $datas = [
-        [ 
-        'nama' => 'Badrun',
-        'alamat' => 'Cikijung'
+        [
+            'optionOpen' => false,
+            'isCheck' => false,
+            'type' => 'singkat',
+            'isFill' => false,
+            'question' => '',
+            'singkat' => '',
+            'paragraf' => '',
+            'ganda' => [
+                ['jawaban' => ''],
+                ['jawaban' => '']
+            ]
         ],
-        [ 
-        'nama' => 'Badrun',
-        'alamat' => 'Cikijung'
+        [
+            'optionOpen' => false,
+            'isCheck' => false,
+            'type' => 'singkat',
+            'isFill' => false,
+            'question' => '',
+            'singkat' => '',
+            'paragraf' => '',
+            'ganda' => ['tiga', 'empat']
         ],
     ];
 
-    public function getDatas(){
+    public function getDatas()
+    {
         dd($this->datas);
     }
 
