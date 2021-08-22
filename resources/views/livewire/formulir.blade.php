@@ -154,30 +154,84 @@
                             </div>
                         </template>
                         <template x-if="data.type == 'ganda'">
-                            <div >
-                                <div class="flex items-center flex-row space-x-3 h-full">
-                                    <div class="w-4 h-4 rounded-full border-2 border-gray-400" @click="console.log(data.ganda)"></div>
-                                    <template x-for="(item, index) in datas[i].ganda" :key="'form-ganda' + index">   
-                                        <x-input-form placeholder="Opsi 1" x-model.lazy="item.jawaban"  class="px-0" ::class="{'border-gray-200': itemActive == i+1}" />
-                                    </template>
+                            <div wire:ignore>
+                                <template x-for="(item, index) in data.ganda" :key="'form-ganda' + index">   
+                                    <div class="flex items-center flex-row space-x-3 h-full">
+                                        <div class="w-4 h-4 rounded-full border-2 border-gray-400 flex-shrink-0"></div>
+                                        <x-input-form placeholder="Opsi 1" x-model.lazy="item.option"  class="px-0" ::class="{'border-gray-200': itemActive == i+1}" />
+                                        <template x-if="index > 0">
+                                            <button class="block focus:outline-none text-gray-600" @click.prevent="handleDeleteOption(i, index, 'ganda')">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </template>
+                                    </div>
+                                </template>
+
+                                <div class="mt-6" x-show="itemActive == i+1">
+                                    <button class="text-sm text-white bg-blue-500 py-2 px-5 rounded flex items-center hover:bg-blue-600 transition duration-150 ease-out focus:ring focus:ring-blue-300" @click.prevent="addOption(i, data.ganda.length, 'ganda')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span class="block">Tambahkan opsi</span>
+                                    </button>
                                 </div>
                             </div>
                         </template>
                         <template x-if="data.type == 'centang'">
-                            <div>
-                                <div class="flex items-center flex-row space-x-3 h-full">
-                                    <div class="w-4 h-4 rounded border-2 border-gray-400"></div>
-                                    <x-input-form placeholder="Opsi 1" value="Opsi 1" class="px-0" ::class="{'border-gray-200': itemActive == i+1}" />
+                            <div wire:ignore>
+
+                                <template x-for="(item, index) in data.centang" :key="'form-centang' + index">      
+                                    <div class="flex items-center flex-row space-x-3 h-full">
+                                        <div class="w-4 h-4 rounded border-2 border-gray-400 flex-shrink-0"></div>
+                                        <x-input-form placeholder="Opsi 1" x-model.lazy="item.option" class="px-0" ::class="{'border-gray-200': itemActive == i+1}" />
+                                        <template x-if="index > 0">
+                                            <button class="block focus:outline-none text-gray-600" @click.prevent="handleDeleteOption(i, index, 'centang')">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </template>
+                                    </div>
+                                </template>
+
+                                <div class="mt-6" x-show="itemActive == i+1">
+                                    <button class="text-sm text-white bg-blue-500 py-2 px-5 rounded flex items-center hover:bg-blue-600 transition duration-150 ease-out focus:ring focus:ring-blue-300" @click.prevent="addOption(i, data.centang.length, 'centang')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span class="block">Tambahkan opsi</span>
+                                    </button>
                                 </div>
                             </div>  
                         </template>
                         <template x-if="data.type == 'dropdown'">
-                            <div>
-                                <div class="flex items-center flex-row space-x-3 h-full">
-                                    <div class="text-gray-600 text-base">1.</div>
-                                    <x-input-form placeholder="Opsi 1" value="Opsi 1" class="px-0" ::class="{'border-gray-200': itemActive == i+1}" />
+                            <div wire:ignore>
+
+                                <template x-for="(item, index) in data.dropdown" :key="'form-dropdown' + index">      
+                                    <div class="flex items-center flex-row space-x-3 h-full">
+                                        <div class="text-gray-600 text-base" x-text="index+1"></div>
+                                        <x-input-form placeholder="Opsi 1" x-model.lazy="item.option" class="px-0" ::class="{'border-gray-200': itemActive == i+1}" />
+                                        <template x-if="index > 0">
+                                            <button class="block focus:outline-none text-gray-600" @click.prevent="handleDeleteOption(i, index, 'dropdown')">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </template>
+                                    </div>
+                                </template>
+
+                                <div class="mt-6" x-show="itemActive == i+1">
+                                    <button class="text-sm text-white bg-blue-500 py-2 px-5 rounded flex items-center hover:bg-blue-600 transition duration-150 ease-out focus:ring focus:ring-blue-300" @click.prevent="addOption(i, data.dropdown.length, 'dropdown')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span class="block">Tambahkan opsi</span>
+                                    </button>
                                 </div>
-                            </div>
+                            </div>  
                         </template>
                     </div>
                     <div x-show="itemActive == i+1" class="border-t-2 border-gray-200 mt-10 pt-4 text-gray-500">
@@ -246,6 +300,15 @@
                         return {
                             ...item,
                             type,
+                            ganda: [
+                                {option: `Opsi`}
+                            ],
+                            centang: [
+                                {option: `Opsi`}
+                            ],
+                            dropdown: [
+                                {option: `Opsi`}
+                            ]
                         }
                     }
                     return item;
@@ -264,6 +327,34 @@
             },
             getData: function(){
                 console.log(this.datas)
+            },
+            addOption: function(index, indexGanda, type){
+                this.datas = this.datas.map((item, i) => {
+                    if(index == i){
+                        return {
+                            ...item,
+                            [type]: [
+                                ...item[type],
+                                {option: `Opsi`}
+                            ]
+                        }   
+                    }
+                    return item;
+                })
+            },
+            handleDeleteOption: function(index, id, type){
+                this.datas = this.datas.map((item, i) => {
+                    if(index == i){
+                        return {
+                            ...item,
+                            [type]: [
+                                ...item[type].filter((item, x) => x != id)
+                            ]
+                        }   
+                    }
+                    return item;
+                })
+
             },
             init: function() {
             }

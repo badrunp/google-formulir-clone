@@ -17,8 +17,13 @@ class Formulir extends Component
             'singkat' => '',
             'paragraf' => '',
             'ganda' => [
-                ['jawaban' => ''],
-                ['jawaban' => '']
+                ['option' => 'Opsi'],
+            ],
+            'centang' => [
+                ['option' => 'Opsi'],
+            ],
+            'dropdown' => [
+                ['option' => 'Opsi'],
             ]
         ],
         [
@@ -29,7 +34,15 @@ class Formulir extends Component
             'question' => '',
             'singkat' => '',
             'paragraf' => '',
-            'ganda' => ['tiga', 'empat']
+            'ganda' => [
+                ['option' => 'Opsi'],
+            ],
+            'centang' => [
+                ['option' => 'Opsi'],
+            ],
+            'dropdown' => [
+                ['option' => 'Opsi'],
+            ]
         ],
     ];
 
