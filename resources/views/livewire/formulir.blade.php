@@ -1,26 +1,47 @@
 <div class="w-full h-auto relative">
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-3xl mx-auto ">
+        @if($errors->any())
+            <div class="fixed left-5 z-50 mx-auto h-auto shadow rounded-lg py-5 px-7 mb-6 bg-red-100 border border-red-400 text-red-700 pr-14">
+                <div class="flex flex-col items-start space-y-2 relative">
+                    @foreach($errors->all() as $key => $error)
+                        <div class="flex flex-row items-center space-x-2 h-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                            <p class="block text-sm text-red-500">{{ $error }}</p>
+                        </div>
+                    @endforeach
+
+                </div> 
+                <button class="absolute right-1  top-1" @click.prevent="$el.parentNode.remove()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        @endif
         <form class="w-full h-auto" x-data="handleForms()">
+            {{-- <p wire:click="getDatas">cek</p> --}}
             <div class="border-t-10 border-blue-500 rounded-lg h-5 relative z-30">
             </div>
-            <div class="bg-white shadow rounded-lg py-6 px-7 -mt-4 border-l-4 border-transparent" :class="{'border-blue-500': itemActive == 0}" @click="itemActive = 0; closeOption();" wire:click="getDatas">
+            <div class="bg-white shadow rounded-lg py-6 px-7 -mt-4 border-l-4 border-transparent" :class="{'border-blue-500': itemActive == 0}" @click="itemActive = 0; isOptionOpen = false;">
                 <div>
-                    <x-input-form placeholder="Judul formulir" value="Formulir tanpa judul" ::class="{'border-gray-200': itemActive == 0}" class="text-4xl text-gray-800 border-dotted focus:border-solid" />
+                    <x-input-form placeholder="Judul formulir" wire:model.lazy="title" ::class="{'border-gray-200': itemActive == 0}" class="text-4xl text-gray-800 border-dotted focus:border-solid" />
                 </div>
                 <div>
-                    <x-input-form placeholder="Deskripsi formulir" class="border-dotted focus:border-solid" ::class="{'border-gray-200': itemActive == 0}" />
+                    <x-input-form placeholder="Deskripsi formulir" wire:model.lazy="description" class="border-dotted focus:border-solid" ::class="{'border-gray-200': itemActive == 0}" />
                 </div>
             </div>
             {{-- @foreach($datas as $key => $value)         
             @endforeach --}}
             <template x-for="(data ,i) in datas" :key="'data-forms' + i">
-                <div class="bg-white shadow rounded-lg mt-6 py-6 px-7 border-l-4 border-transparent" @click="itemActive = i+1; closeOption()" :class="{'border-blue-500': itemActive == i+1   }">
+                <div class="bg-white shadow rounded-lg mt-6 py-6 px-7 border-l-4 border-transparent" @click="itemActive = i+1; isOptionOpen = false" :class="{'border-blue-500': itemActive == i+1   }">
                     <div class="flex items-center flex-row space-x-8 justify-between">
                         <div class="w-full" style="flex: 2;">
                             <x-input-form placeholder="Judul formulir" placeholder="Pertanyaan" x-model.lazy="data.question" class="font-medium" ::class="{'border-gray-200': itemActive == i+1, 'bg-gray-100': itemActive == i+1}" />
                         </div>
                         <div class="w-full flex justify-center items-center relative" style="flex: 1;" x-show="itemActive == i+1">
-                            <button class="text-gray-500 border rounded py-3 px-5 w-full border-gray-300 flex items-center justify-between" @click.prevent="openOption(i)">
+                            <button class="text-gray-500 border rounded py-3 px-5 w-full border-gray-300 flex items-center justify-between" @click.prevent.stop="isOptionOpen = true">
                                 <div class="flex flex-row items-center justify-start">
                                     <div>
                                         <template x-if="data.type == 'singkat'">
@@ -75,7 +96,7 @@
                                     </svg>
                                 </div>
                             </button>
-                            <div x-show="data.optionOpen" @click.away="data.optionOpen = false" class="absolute ml-3 z-40">
+                            <div :class="{'hidden': !isOptionOpen, 'block': isOptionOpen}" class="absolute ml-3 z-40">
                                 <ul class="bg-white rounded shadow-md w-56 border py-1 text-gray-500">
                                     <li>
                                         <button @click.prevent="handleChangeType(i,'singkat')" class="hover:bg-gray-100 transition ease-out duration-150 w-full">
@@ -251,7 +272,7 @@
                                         Wajib Diisi
                                     </div>
                                     <div class="relative" @click="handleChangeIsFill(i)">
-                                        <input id="isFill" type="checkbox" value="isFill" x-model="data.isFill" class="sr-only" />
+                                        <input id="requiredfill" type="checkbox"  x-model="data.requiredfill" class="sr-only" />
                                         <div class="w-10 h-4 bg-gray-300 rounded-full shadow-inner"></div>
                                         <div class="dot absolute w-6 h-6 bg-white rounded-full shadow border-l -left-1 -top-1 transition"></div>
                                     </div>
@@ -270,9 +291,27 @@
                     </div>
                 </div>
             </template>
+
+
+            <div class="relative w-full h-auto mt-6" @click="getOpen">
+                <div class="bg-white shadow rounded">
+                    <div class="py-5 px-6 flex flex-row justify-between items-center space-x-4">
+                        <div class="flex flex-row space-x-2 items-center">
+                            <p class="sr-only">Loading</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" wire:loading wire:target="store" class="h-5 w-5 animate-spin text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+                            </svg>
+                            <p wire:loading wire:target="store" class="block text-gray-600">Sedang menyimpan harap tunggu.....</p>
+                        </div>
+                        <div class="flex flex-row space-x-4 items-center">
+                            <x-button-link href="{{route('formulir.home')}}" >Kembali </x-button-link>
+                            <x-button wire:click.prevent="store">Kirim </x-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
-
 </div>
 
 @push('scripts')
@@ -282,24 +321,7 @@
             open: false,
             datas: @entangle('datas'),
             itemActive: 0, 
-            openOption: function(index){
-                console.log(this.datas)
-                this.datas = this.datas.map((item, i) => {
-                    if(index == i){
-                        return {
-                            ...item,
-                            optionOpen: true,
-                        }
-                    }
-                    return item;
-                })
-            },
-            closeOption: function(){
-                const l =this.datas = this.datas.map((item, i) => ({
-                    ...item,
-                    optionOpen: false  
-                }))
-            },
+            isOptionOpen: true,
             handleChangeType: function(index,type, el = null){
                 this.datas = this.datas.map((item, i) => {
                     if(index == i){
@@ -325,7 +347,7 @@
                     if(index == i){
                         return {
                             ...item,
-                            isFill: !item.isFill,
+                            requiredfill: !item.requiredfill,
                         }
                     }
                     return item;
@@ -333,25 +355,15 @@
             },
             handleAddQuestion: function(){
                 this.datas = [...this.datas, {
-                    optionOpen: false,
-                    isCheck: false,
+                    id: '',
                     type: 'singkat',
-                    isFill: false,
+                    requiredfill: false,
                     question: '',
-                    singkat: '', 
-                    paragraf: '',
-                    ganda: [
-                        {option: 'Opsi'}
-                    ],
-                    centang: [
-                        {option: 'Opsi'}
-                    ],
-                    dropdown: [
-                        {option: 'Opsi'}
-                    ]
+
                 }]
             },
             init: function() {
+
             }
          }
     }

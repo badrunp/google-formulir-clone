@@ -14,6 +14,7 @@
 <body class="overflow-x-hidden bg-gray-100 antialiased">
 
     <livewire:navbar />
+    <x-session-flash/>
 
     <div class="py-4 mt-16">
         {{ $slot }}
