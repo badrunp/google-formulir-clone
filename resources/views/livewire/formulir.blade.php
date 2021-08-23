@@ -3,7 +3,7 @@
         <form class="w-full h-auto" x-data="handleForms()">
             <div class="border-t-10 border-blue-500 rounded-lg h-5 relative z-30">
             </div>
-            <div class="bg-white shadow rounded-lg py-6 px-7 -mt-4 border-l-4 border-transparent" :class="{'border-blue-500': itemActive == 0}" @click="itemActive = 0; closeOption(); getData()" wire:click="getDatas">
+            <div class="bg-white shadow rounded-lg py-6 px-7 -mt-4 border-l-4 border-transparent" :class="{'border-blue-500': itemActive == 0}" @click="itemActive = 0; closeOption();" wire:click="getDatas">
                 <div>
                     <x-input-form placeholder="Judul formulir" value="Formulir tanpa judul" ::class="{'border-gray-200': itemActive == 0}" class="text-4xl text-gray-800 border-dotted focus:border-solid" />
                 </div>
@@ -160,7 +160,7 @@
                                         <div class="w-4 h-4 rounded-full border-2 border-gray-400 flex-shrink-0"></div>
                                         <x-input-form placeholder="Opsi 1" x-model.lazy="item.option"  class="px-0" ::class="{'border-gray-200': itemActive == i+1}" />
                                         <template x-if="index > 0">
-                                            <button class="block focus:outline-none text-gray-600" @click.prevent="handleDeleteOption(i, index, 'ganda')">
+                                            <button class="block focus:outline-none text-gray-600" @click.prevent="$wire.handleDeleteOption(i, index, 'ganda')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                 </svg>
@@ -170,7 +170,7 @@
                                 </template>
 
                                 <div class="mt-6" x-show="itemActive == i+1">
-                                    <button class="text-sm text-white bg-blue-500 py-2 px-5 rounded flex items-center hover:bg-blue-600 transition duration-150 ease-out focus:ring focus:ring-blue-300" @click.prevent="addOption(i, data.ganda.length, 'ganda')">
+                                    <button class="text-sm text-white bg-blue-500 py-2 px-5 rounded flex items-center hover:bg-blue-600 transition duration-150 ease-out focus:ring focus:ring-blue-300" @click.prevent="$wire.addOption(i, 'ganda')">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
                                         </svg>
@@ -187,7 +187,7 @@
                                         <div class="w-4 h-4 rounded border-2 border-gray-400 flex-shrink-0"></div>
                                         <x-input-form placeholder="Opsi 1" x-model.lazy="item.option" class="px-0" ::class="{'border-gray-200': itemActive == i+1}" />
                                         <template x-if="index > 0">
-                                            <button class="block focus:outline-none text-gray-600" @click.prevent="handleDeleteOption(i, index, 'centang')">
+                                            <button class="block focus:outline-none text-gray-600" @click.prevent="$wire.handleDeleteOption(i, index, 'centang')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                 </svg>
@@ -197,7 +197,7 @@
                                 </template>
 
                                 <div class="mt-6" x-show="itemActive == i+1">
-                                    <button class="text-sm text-white bg-blue-500 py-2 px-5 rounded flex items-center hover:bg-blue-600 transition duration-150 ease-out focus:ring focus:ring-blue-300" @click.prevent="addOption(i, data.centang.length, 'centang')">
+                                    <button class="text-sm text-white bg-blue-500 py-2 px-5 rounded flex items-center hover:bg-blue-600 transition duration-150 ease-out focus:ring focus:ring-blue-300" @click.prevent="$wire.addOption(i, 'centang')">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
                                         </svg>
@@ -214,7 +214,7 @@
                                         <div class="text-gray-600 text-base" x-text="index+1"></div>
                                         <x-input-form placeholder="Opsi 1" x-model.lazy="item.option" class="px-0" ::class="{'border-gray-200': itemActive == i+1}" />
                                         <template x-if="index > 0">
-                                            <button class="block focus:outline-none text-gray-600" @click.prevent="handleDeleteOption(i, index, 'dropdown')">
+                                            <button class="block focus:outline-none text-gray-600" @click.prevent="$wire.handleDeleteOption(i, index, 'dropdown');">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                 </svg>
@@ -224,7 +224,7 @@
                                 </template>
 
                                 <div class="mt-6" x-show="itemActive == i+1">
-                                    <button class="text-sm text-white bg-blue-500 py-2 px-5 rounded flex items-center hover:bg-blue-600 transition duration-150 ease-out focus:ring focus:ring-blue-300" @click.prevent="addOption(i, data.dropdown.length, 'dropdown')">
+                                    <button class="text-sm text-white bg-blue-500 py-2 px-5 rounded flex items-center hover:bg-blue-600 transition duration-150 ease-out focus:ring focus:ring-blue-300" @click.prevent="$wire.addOption(i, 'dropdown')">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
                                         </svg>
@@ -235,13 +235,17 @@
                         </template>
                     </div>
                     <div x-show="itemActive == i+1" class="border-t-2 border-gray-200 mt-10 pt-4 text-gray-500">
-                        <div class="w-full h-auto flex items-center justify-end space-x-4">
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                            </div>
-                            <div class="border-l pl-4 border-gray-300">
+                        <div class="w-full h-auto flex items-center justify-end space-x-2">
+                            <template x-if="i > 0">
+                                <div class="border-r pr-2 border-gray-300">
+                                    <button type="button" class="block p-2 rounded-full hover:bg-gray-100 transition ease-out duration-150"  @click="$wire.handleDeleteQuestion(i);">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </template>
+                            <div class="pl-2">
                                 <label for="toogleA" class="flex items-center cursor-pointer">
                                     <div class="mr-3 text-gray-500">
                                         Wajib Diisi
@@ -253,17 +257,22 @@
                                     </div>
                                 </label>
                             </div>
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                                </svg>
-                            </div>
+                            <template x-if="i == datas.length -1">
+                                <div class="pl-4">
+                                    <button type="button" class="block p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition ease-out duration-150" @click="handleAddQuestion()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </template>
                         </div>
                     </div>
                 </div>
             </template>
         </form>
     </div>
+
 </div>
 
 @push('scripts')
@@ -273,11 +282,9 @@
             open: false,
             datas: @entangle('datas'),
             itemActive: 0, 
-            getActive: function() {
-                console.log(this.itemActive)
-            },
             openOption: function(index){
-                const kk = this.datas = this.datas.map((item, i) => {
+                console.log(this.datas)
+                this.datas = this.datas.map((item, i) => {
                     if(index == i){
                         return {
                             ...item,
@@ -286,7 +293,6 @@
                     }
                     return item;
                 })
-                console.log(kk)
             },
             closeOption: function(){
                 const l =this.datas = this.datas.map((item, i) => ({
@@ -295,7 +301,7 @@
                 }))
             },
             handleChangeType: function(index,type, el = null){
-                   this.datas = this.datas.map((item, i) => {
+                this.datas = this.datas.map((item, i) => {
                     if(index == i){
                         return {
                             ...item,
@@ -325,36 +331,25 @@
                     return item;
                 })
             },
-            getData: function(){
-                console.log(this.datas)
-            },
-            addOption: function(index, indexGanda, type){
-                this.datas = this.datas.map((item, i) => {
-                    if(index == i){
-                        return {
-                            ...item,
-                            [type]: [
-                                ...item[type],
-                                {option: `Opsi`}
-                            ]
-                        }   
-                    }
-                    return item;
-                })
-            },
-            handleDeleteOption: function(index, id, type){
-                this.datas = this.datas.map((item, i) => {
-                    if(index == i){
-                        return {
-                            ...item,
-                            [type]: [
-                                ...item[type].filter((item, x) => x != id)
-                            ]
-                        }   
-                    }
-                    return item;
-                })
-
+            handleAddQuestion: function(){
+                this.datas = [...this.datas, {
+                    optionOpen: false,
+                    isCheck: false,
+                    type: 'singkat',
+                    isFill: false,
+                    question: '',
+                    singkat: '', 
+                    paragraf: '',
+                    ganda: [
+                        {option: 'Opsi'}
+                    ],
+                    centang: [
+                        {option: 'Opsi'}
+                    ],
+                    dropdown: [
+                        {option: 'Opsi'}
+                    ]
+                }]
             },
             init: function() {
             }

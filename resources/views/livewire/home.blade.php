@@ -69,7 +69,7 @@
                             <h2 class="block text-lg">Note!</h2>
                         </div>
                         <div class="text-gray-500">
-                            <p class="block text-base tracking-wide">Login terlebih dahulu untuk membuat formulir baru</p>
+                            <p class="block text-base">Login terlebih dahulu untuk membuat formulir baru</p>
                         </div>
                     </div>
                 </div>
