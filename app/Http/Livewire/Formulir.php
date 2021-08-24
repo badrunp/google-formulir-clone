@@ -18,7 +18,7 @@ class Formulir extends Component
         [
             'type' => 'singkat',
             'requiredfill' => false,
-            'question' => '',
+            'question' => 'Pertanyaan',
             'options' => [
                 ['option' => 'Opsi 1']
             ]
@@ -73,10 +73,16 @@ class Formulir extends Component
         dd($this->datas);
     }
 
-    public function handleDeleteQuestion($index)
+    public function handleDeleteQuestion($index, $id)
     {
         unset($this->datas[$index]);
         $this->datas = array_values($this->datas);
+        if($id != ""){
+            Question::where('id', $id)->delete();
+        }
+
+        $this->dispatchBrowserEvent('success', ['text' => 'Success, Formulir berhasil dihapus']);
+
     }
 
     public function handleDeleteOption($index, $i)
@@ -165,7 +171,7 @@ class Formulir extends Component
             abort(404);
         }
 
-        $this->dispatchBrowserEvent('success', ['text' => 'Success, formulir berhasil direkam']);
+        $this->dispatchBrowserEvent('success', ['text' => 'Success, Formulir berhasil direkam']);
     }
 
     public function render()

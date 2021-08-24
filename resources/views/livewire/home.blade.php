@@ -29,14 +29,14 @@
                             <div class="flex-grow">
                                 <p class="text-gray-600 text-sm truncate">Diperbarui {{ $value->updated_at->diffForHumans() }}</p>
                             </div>
-                            <div class="relative p-2 hover:bg-gray-100 rounded-full cursor-pointer" x-data="{open: false}" @click="open = true">
+                            <div class="relative p-2 hover:bg-gray-100 rounded-full cursor-pointer" x-data="{open: false}" @click="open = true" @success.window="open = false">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-5x00" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                                 </svg>
 
-                                <div x-show="open" :class="{'absolute': true, 'hidden': false}" class="hidden top-0 mt-10 right-0" @click.away="open = false" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="transform translate-y-3 opacity-0" x-transition:enter-end="transform translate-y-0 opacity-100" x-transition:leave="transition ease-out duration-150" x-transition:leave-start="transform translate-y-0 opacity-100" x-transition:leave-end="transform translate-y-3 opacity-0">
+                                <div x-show="open" :class="{'absolute': true, 'hidden': false}" class="hidden top-0 mt-10 right-0 z-40" @click.away="open = false" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="transform translate-y-3 opacity-0" x-transition:enter-end="transform translate-y-0 opacity-100" x-transition:leave="transition ease-out duration-150" x-transition:leave-start="transform translate-y-0 opacity-100" x-transition:leave-end="transform translate-y-3 opacity-0">
                                     <div class="bg-white rounded-md shadow border-t">
-                                        <ul class="flex flex-col py-2">
+                                        <ul class="flex flex-col py-2" x-data="{url: '{{ route('formulir.user', ['form' => $value->has]) }}'}">
                                             <li>
                                                 <a href="{{ route('formulir.user', ['form' => $value->has]) }}" class="block w-40 py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm">Buka</a>
                                             </li>
@@ -44,13 +44,13 @@
                                                 <a href="{{route('formulir.store', ['forms' => $value->has])}}" class="block w-40 py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm">Edit</a>
                                             </li>
                                             <li>
-                                                <a href="" class="block w-40 py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm">Salin Url</a>
+                                                <button class="block w-full text-left py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm" @click="$clipboard(url);" wire:click.prevent="successFlash">Salin Url<span wire:loading wire:target="successFlash">...</span></button>
                                             </li>
                                             <li>
                                                 <a href="" class="block w-40 py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm">Lihat Jawaban</a>
                                             </li>
                                             <li>
-                                                <a href="" class="block w-40 py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm">Hapus</a>
+                                                <button class="block w-full text-left py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm" wire:click.prevent="deleteForm({{$value->id}})">Hapus<span wire:loading wire:target="deleteForm">...</span></button>
                                             </li>
                                         </ul>
                                     </div>

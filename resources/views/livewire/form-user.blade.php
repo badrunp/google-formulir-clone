@@ -1,4 +1,4 @@
-<div class="w-full h-auto relative">
+<div class="w-full h-auto relative" x-data="handleFormUser()">
     <div class="max-w-3xl mx-auto ">
         <form class="w-full h-auto">
             <div class="border-t-10 border-blue-500 rounded-lg h-5 relative z-30">
@@ -35,17 +35,17 @@
                         <div class="flex flex-row space-x-4 items-center">
                             @if($value->type == 'ganda')
                             <div>
-                                <input type="radio" />
+                                <input type="radio" value="{{ $option->id }}" wire:model="ganda.{{$key}}" name="ganda{{$key}}" />
                             </div>
                             @endif
                             @if($value->type == 'centang')
                             <div>
-                                <input type="checkbox" class="border-gray-400 rounded" />
+                                <input type="checkbox" class="border-gray-400 rounded" value="{{ $option->id }}" wire:model="centang.{{$index}}"  />
                             </div>
                             @endif
 
                             @if($value->type == 'ganda' || $value->type == 'centang')
-                            <span class="block text-gray-600">{{ $option->option }}</span>
+                                <span class="block text-gray-600">{{ $option->option }}</span>
                             @endif
                         </div>
                         @endforeach
@@ -66,7 +66,7 @@
             </div>
             @endforeach
 
-            <div class="relative w-full h-auto mt-6">
+            <div class="relative w-full h-auto mt-6" wire:click="getDatas()">
                 <div class="bg-white shadow rounded">
                     <div class="py-5 px-6 flex flex-row justify-between items-center space-x-4">
                         <div class="flex flex-row space-x-2 items-center">
@@ -88,5 +88,10 @@
 
 @push('scripts')
 <script>
+    function handleFormUser(){
+        return {
+            datas: @entangle('datas')
+        }
+    }
 </script>
 @endpush

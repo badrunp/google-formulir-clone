@@ -213,7 +213,7 @@
                         <div class="w-full h-auto flex items-center justify-end space-x-2">
                             <template x-if="i > 0">
                                 <div class="border-r pr-2 border-gray-300">
-                                    <button type="button" class="block p-2 rounded-full hover:bg-gray-100 transition ease-out duration-150"  @click="$wire.handleDeleteQuestion(i);">
+                                    <button type="button" class="block p-2 rounded-full hover:bg-gray-100 transition ease-out duration-150"  @click="$wire.handleDeleteQuestion(i, data.id);">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                         </svg>

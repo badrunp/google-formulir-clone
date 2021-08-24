@@ -10,10 +10,17 @@ class FormUser extends Component
 
     public $form;
     public $questions = []; 
+    public $ganda = [];
+    public $centang = [];
+
 
     public function mount(Form $form){
         $this->form = $form;
         $this->questions = $form->questions->load('options');
+    }
+
+    public function getDatas(){
+        dd(array_values([$this->ganda, $this->centang]));
     }
 
     public function render()
