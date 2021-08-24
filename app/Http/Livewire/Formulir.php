@@ -19,6 +19,9 @@ class Formulir extends Component
             'type' => 'singkat',
             'requiredfill' => false,
             'question' => '',
+            'options' => [
+                ['option' => 'Opsi 1']
+            ]
         ]
     ];
 
@@ -40,6 +43,7 @@ class Formulir extends Component
                             'type' => $item->type,
                             'requiredfill' => $item->requiredfill == 1 ? true : false,
                             'question' => $item->question,
+                            'options' => $item->options()->get(['id', 'option', 'question_id'])->toArray() ?? []
                         ];
                     }
                 } else {
@@ -75,15 +79,15 @@ class Formulir extends Component
         $this->datas = array_values($this->datas);
     }
 
-    public function handleDeleteOption($index, $i, $type)
+    public function handleDeleteOption($index, $i)
     {
-        unset($this->datas[$index][$type][$i]);
-        $this->datas[$index][$type] = array_values($this->datas[$index][$type]);
+        unset($this->datas[$index]['options'][$i]);
+        $this->datas[$index]['options'] = array_values($this->datas[$index]['options']);
     }
 
-    public function addOption($index, $type)
+    public function addOption($index)
     {
-        $this->datas[$index][$type][] = ['option' => 'Opsi'];
+        $this->datas[$index]['options'][] = ['option' => 'Opsi'];
     }
 
     public function store()
@@ -127,6 +131,17 @@ class Formulir extends Component
                         'type' => $item['type'],
                         'requiredfill' => $item['requiredfill'],
                     ]);
+
+                    if($item['type'] == 'ganda' || $item['type'] == 'centang' || $item['type'] == 'dropdown'){
+                        if(isset($item['options'])){
+                            $question->options()->delete();
+                            foreach($item['options'] as $option){
+                                $question->options()->create([
+                                    'option' => $option['option']
+                                ]);
+                            }
+                        }
+                    }
                 } else {
                     $question = Question::create([
                         'question' => $item['question'],
@@ -134,6 +149,16 @@ class Formulir extends Component
                         'requiredfill' => $item['requiredfill'],
                         'form_id' => $form->id
                     ]);
+                    if($item['type'] == 'ganda' || $item['type'] == 'centang' || $item['type'] == 'dropdown'){
+                        if(isset($item['options'])){
+                            $question->options()->delete();
+                            foreach($item['options'] as $option){
+                                $question->options()->create([
+                                    'option' => $option['option']
+                                ]);
+                            }
+                        }
+                    }
                 }
             }
         } else {

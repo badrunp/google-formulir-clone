@@ -18,7 +18,7 @@
                     @foreach($forms as $key => $value)
                     <div class="bg-white shadow rounded-md px-4 py-3">
                         <div class="text-gray-600">
-                            <h4 class="block font-medium">{{ $value->title }}</h4>
+                            <h4 class="block font-medium truncate">{{ $value->title }}</h4>
                         </div>
                         <div class="flex flex-row items-center justify-between py-2 space-x-2">
                             <div>
@@ -29,8 +29,8 @@
                             <div class="flex-grow">
                                 <p class="text-gray-600 text-sm truncate">Diperbarui {{ $value->updated_at->diffForHumans() }}</p>
                             </div>
-                            <div class="relative p-2 hover:bg-gray-100 rounded-full cursor-pointer" x-data="{open: false}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-5x00" viewBox="0 0 20 20" fill="currentColor" @click="open = true">
+                            <div class="relative p-2 hover:bg-gray-100 rounded-full cursor-pointer" x-data="{open: false}" @click="open = true">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-5x00" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                                 </svg>
 
@@ -38,7 +38,7 @@
                                     <div class="bg-white rounded-md shadow border-t">
                                         <ul class="flex flex-col py-2">
                                             <li>
-                                                <a href="" class="block w-40 py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm">Buka</a>
+                                                <a href="{{ route('formulir.user', ['form' => $value->has]) }}" class="block w-40 py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm">Buka</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('formulir.store', ['forms' => $value->has])}}" class="block w-40 py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm">Edit</a>
