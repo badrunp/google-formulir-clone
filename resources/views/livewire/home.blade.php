@@ -47,7 +47,7 @@
                                                 <button class="block w-full text-left py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm" @click="$clipboard(url);" wire:click.prevent="successFlash">Salin Url<span wire:loading wire:target="successFlash">...</span></button>
                                             </li>
                                             <li>
-                                                <a href="" class="block w-40 py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm">Lihat Jawaban</a>
+                                                <a href="{{route('formulir.answer', ['form' => $value->has])}}" class="block w-40 py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm">Lihat Jawaban</a>
                                             </li>
                                             <li>
                                                 <button class="block w-full text-left py-2 px-5 text-gray-700 hover:bg-gray-100 transition ease-out duration-150 text-sm" wire:click.prevent="deleteForm({{$value->id}})">Hapus<span wire:loading wire:target="deleteForm">...</span></button>

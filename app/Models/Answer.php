@@ -9,6 +9,8 @@ class Answer extends Model
 {
     use HasFactory;
 
+    // protected $with = ['option'];
+
     protected $fillable = ['answer', 'user_id', 'type', 'option_id', 'question_id', 'form_id'];
 
     public function option(){
@@ -17,5 +19,9 @@ class Answer extends Model
 
     public function question(){
         return $this->belongsTo(Question::class);
+    }
+
+    public function form(){
+        return $this->belongsTo(Form::class);
     }
 }
