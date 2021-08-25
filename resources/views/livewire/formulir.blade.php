@@ -306,7 +306,7 @@
                     id: '',
                     type: 'singkat',
                     requiredfill: false,
-                    question: '',
+                    question: 'Pertanyaan',
 
                 }]
             },

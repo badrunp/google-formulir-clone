@@ -120,6 +120,17 @@ class Formulir extends Component
                     'requiredfill' => $item['requiredfill'],
                     'form_id' => $form->id
                 ]);
+
+                if($item['type'] == 'ganda' || $item['type'] == 'centang' || $item['type'] == 'dropdown'){
+                    if(isset($item['options'])){
+                        $question->options()->delete();
+                        foreach($item['options'] as $option){
+                            $question->options()->create([
+                                'option' => $option['option']
+                            ]);
+                        }
+                    }
+                }
             }
         } else if ($this->type == 'update') {
 

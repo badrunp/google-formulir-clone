@@ -8,9 +8,12 @@ use Livewire\Component;
 class Home extends Component
 {
 
-    public $success = false;
+    public $forms;
 
     public function mount(){
+        if(auth()->check()){
+            $this->forms = Form::where('user_id', auth()->user()->id)->get();
+        }
     }
 
     public function successFlash(){
@@ -28,10 +31,6 @@ class Home extends Component
 
     public function render()
     {
-        if(auth()->check()){
-            $forms = Form::where('user_id', auth()->user()->id)->get();
-        }
-
-        return view('livewire.home', ['forms' => $forms])->layout('layouts.layout-app');
+        return view('livewire.home')->layout('layouts.layout-app');
     }
 }

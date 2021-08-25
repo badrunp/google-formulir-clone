@@ -21,12 +21,12 @@
                 <div class="text-gray-600 mt-2">
                     @if($value->type == 'singkat')
                     <div class="w-1/2">
-                        <x-input-form placeholder="Text jawaban singkat" class="border-gray-200" />
+                        <x-input-form placeholder="Text jawaban singkat" class="border-gray-200" wire:model="datas.singkat.{{strval($value->id)}}" />
                     </div>
                     @endif
                     @if($value->type == 'paragraf')
                     <div>
-                        <x-input-form placeholder="Text jawaban panjang" class="border-gray-200" />
+                        <x-input-form placeholder="Text jawaban panjang" class="border-gray-200" wire:model="datas.paragraf.{{strval($value->id)}}" />
                     </div>
                     @endif
 
@@ -35,12 +35,12 @@
                         <div class="flex flex-row space-x-4 items-center">
                             @if($value->type == 'ganda')
                             <div>
-                                <input type="radio" value="{{ $option->id }}" wire:model="ganda.{{$key}}" name="ganda{{$key}}" />
+                                <input type="radio" value="{{ $option->id }}" wire:model="datas.ganda.{{strval($value->id)}}" name="ganda{{strval($value->id)}}" />
                             </div>
                             @endif
                             @if($value->type == 'centang')
                             <div>
-                                <input type="checkbox" class="border-gray-400 rounded" value="{{ $option->id }}" wire:model="centang.{{$index}}"  />
+                                <input type="checkbox" class="border-gray-400 rounded" value="{{ $option->id }}" wire:model="datas.centang.{{strval($value->id)}}.{{$index}}"  />
                             </div>
                             @endif
 
@@ -53,10 +53,10 @@
 
                     @if($value->type == 'dropdown')
                     <div class="text-gray-600">
-                        <select class="border-gray-400 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300 transition ease-out duration-150">
+                        <select wire:model="datas.dropdown.{{strval($value->id)}}" class="border-gray-400 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300 transition ease-out duration-150">
                             <option>Pilih Jawaban</option>
                             @foreach($value->options as $index => $option)
-                            <option value="{{ $option->option }}">{{ $option->option }}</option>
+                            <option value="{{ $option->id }}">{{ $option->option }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -66,7 +66,7 @@
             </div>
             @endforeach
 
-            <div class="relative w-full h-auto mt-6" wire:click="getDatas()">
+            <div class="relative w-full h-auto mt-6">
                 <div class="bg-white shadow rounded">
                     <div class="py-5 px-6 flex flex-row justify-between items-center space-x-4">
                         <div class="flex flex-row space-x-2 items-center">
@@ -89,9 +89,7 @@
 @push('scripts')
 <script>
     function handleFormUser(){
-        return {
-            datas: @entangle('datas')
-        }
+     
     }
 </script>
 @endpush
