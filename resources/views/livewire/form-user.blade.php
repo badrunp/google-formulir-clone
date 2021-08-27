@@ -11,9 +11,16 @@
                     <p class="block text-gray-600">Deskripsi</p>
                 </div>
             </div>
+{{-- 
+            @if($errors->any())
+                {{dd($errors)}}
+            @endif --}}
 
             @foreach($questions as $key => $value)
-            <div class="bg-white shadow rounded-lg mt-6 py-6 px-7 border-l-4 border-transparent">
+            <div class="bg-white shadow rounded-lg mt-6 py-6 px-7 border-l-4 border-transparent @error('datas.{{ $value->type}}.{{$value->id}}') border-red-500 @enderror" >
+                @if($value->requiredfill == 1)
+                    <span class="block text-red-500 text-sm mb-4 font-medium">*Wajib diisi</span>
+                @endif
                 <div class="text-gray-600 flex flex-row space-x-2">
                     <span class="block font-medium">{{ $key+1 }}.</span>
                     <h5 class="block text-base font-medium">{{ $value->question }}</h5>
@@ -40,12 +47,12 @@
                             @endif
                             @if($value->type == 'centang')
                             <div>
-                                <input type="checkbox" class="border-gray-400 rounded" value="{{ $option->id }}" wire:model="datas.centang.{{strval($value->id)}}.{{$index}}"  />
+                                <input type="checkbox" class="border-gray-400 rounded" value="{{ $option->id }}" wire:model="datas.centang.{{strval($value->id)}}.{{$index}}" />
                             </div>
                             @endif
 
                             @if($value->type == 'ganda' || $value->type == 'centang')
-                                <span class="block text-gray-600">{{ $option->option }}</span>
+                            <span class="block text-gray-600">{{ $option->option }}</span>
                             @endif
                         </div>
                         @endforeach
@@ -61,7 +68,7 @@
                         </select>
                     </div>
                     @endif
- 
+
                 </div>
             </div>
             @endforeach
@@ -88,8 +95,9 @@
 
 @push('scripts')
 <script>
-    function handleFormUser(){
-     
+    function handleFormUser() {
+
     }
+
 </script>
 @endpush

@@ -14,6 +14,26 @@ class FormUser extends Component
     public $questions = [];
     public $datas = [];
 
+    public function rules(){
+        $errors = [];
+        foreach($this->questions as $key => $item){
+            if($item->requiredfill == 1){
+                if($item->type == 'singkat'){
+                    $errors['datas.singkat.' . $item->id] = 'required';
+                }else if($item->type == 'paragraf'){
+                    $errors['datas.paragraf.' . $item->id] = 'required';
+                }else if($item->type == 'ganda'){
+                    $errors['datas.ganda.' . $item->id] = 'required';
+                }else if($item->type == 'dropdown'){
+                    $errors['datas.dropdown.' . $item->id] = 'required';
+                }else if($item->type == 'centang'){
+                    $errors['datas.centang.' . $item->id ] = 'required';
+                }
+            }
+        }
+        // dd($errors);
+        return $errors;
+    }
 
     public function mount(Form $form)
     {
@@ -24,6 +44,9 @@ class FormUser extends Component
 
     public function store()
     {
+
+        $this->validate();
+
         $rand = rand(111111111, 999999999);
         $user_id = $rand;
 
@@ -33,11 +56,11 @@ class FormUser extends Component
             $user_id = $rand;
         }
         
-        $this->insertAnswers('paragraf', $user_id);
-        $this->insertAnswers('singkat', $user_id);
-        $this->insertAnswers('ganda', $user_id);
-        $this->insertAnswers('dropdown', $user_id);
-        $this->insertAnswers('centang', $user_id);
+        // $this->insertAnswers('paragraf', $user_id);
+        // $this->insertAnswers('singkat', $user_id);
+        // $this->insertAnswers('ganda', $user_id);
+        // $this->insertAnswers('dropdown', $user_id);
+        // $this->insertAnswers('centang', $user_id);
 
         session()->flash('send_success', $this->form->title);
         session()->flash('url', $this->form->has);
