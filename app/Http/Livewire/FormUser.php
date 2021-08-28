@@ -14,25 +14,30 @@ class FormUser extends Component
     public $questions = [];
     public $datas = [];
 
-    public function rules(){
-        $errors = [];
-        foreach($this->questions as $key => $item){
-            if($item->requiredfill == 1){
-                if($item->type == 'singkat'){
+    public function rules()
+    {
+        $errors = [
+            'datas.h.0' => 'nullable'
+        ];
+        foreach ($this->questions as $key => $item) {
+            if ($item->requiredfill == 1) {
+                if ($item->type == 'singkat') {
                     $errors['datas.singkat.' . $item->id] = 'required';
-                }else if($item->type == 'paragraf'){
+                } else if ($item->type == 'paragraf') {
                     $errors['datas.paragraf.' . $item->id] = 'required';
-                }else if($item->type == 'ganda'){
+                } else if ($item->type == 'ganda') {
                     $errors['datas.ganda.' . $item->id] = 'required';
-                }else if($item->type == 'dropdown'){
+                } else if ($item->type == 'dropdown') {
                     $errors['datas.dropdown.' . $item->id] = 'required';
-                }else if($item->type == 'centang'){
-                    $errors['datas.centang.' . $item->id ] = 'required';
+                } else if ($item->type == 'centang') {
+                    $errors['datas.centang.' . $item->id] = 'required';
                 }
             }
         }
         // dd($errors);
-        return $errors;
+        if (count($errors) > 0) {
+            return $errors;
+        }
     }
 
     public function mount(Form $form)
@@ -44,28 +49,32 @@ class FormUser extends Component
 
     public function store()
     {
+        if (count($this->datas) > 0) {
+            $this->validate();
 
-        $this->validate();
-
-        $rand = rand(111111111, 999999999);
-        $user_id = $rand;
-
-        $answer = Answer::where('user_id', $user_id)->first();
-        if($answer){
             $rand = rand(111111111, 999999999);
             $user_id = $rand;
+
+            $answer = Answer::where('user_id', $user_id)->first();
+            if ($answer) {
+                $rand = rand(111111111, 999999999);
+                $user_id = $rand;
+            }
+
+            $this->insertAnswers('paragraf', $user_id);
+            $this->insertAnswers('singkat', $user_id);
+            $this->insertAnswers('ganda', $user_id);
+            $this->insertAnswers('dropdown', $user_id);
+            $this->insertAnswers('centang', $user_id);
+
+            session()->flash('hasSuccess', 1);
+        }else{
+            session()->flash('hasSuccess', 0);
         }
         
-        // $this->insertAnswers('paragraf', $user_id);
-        // $this->insertAnswers('singkat', $user_id);
-        // $this->insertAnswers('ganda', $user_id);
-        // $this->insertAnswers('dropdown', $user_id);
-        // $this->insertAnswers('centang', $user_id);
-
         session()->flash('send_success', $this->form->title);
         session()->flash('url', $this->form->has);
         return redirect()->route('formulir.response');
-
     }
 
     public function insertAnswers($type, $user_id)
@@ -73,7 +82,7 @@ class FormUser extends Component
 
         if (isset($this->datas[$type])) {
             foreach ($this->datas[$type] as $key => $data) {
-                if($type == 'centang'){
+                if ($type == 'centang') {
                     foreach ($data as $item) {
                         if ($item != false) {
                             Answer::create([
@@ -86,7 +95,7 @@ class FormUser extends Component
                             ]);
                         }
                     }
-                }else{
+                } else {
                     Answer::create([
                         'answer' => $type == 'singkat' || $type == 'paragraf' ? $data : null,
                         'user_id' => $user_id,
@@ -98,7 +107,6 @@ class FormUser extends Component
                 }
             }
         }
-
     }
 
 

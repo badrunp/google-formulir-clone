@@ -7,10 +7,22 @@
                 <h4 class="block text-4xl text-gray-800">{{ session()->has('send_success') ? session()->get('send_success') : 'Formulir tanpa judul' }}</h4>
             </div>
             <div class="my-5">
-                <p class="block text-gray-600 tracking-tight">Jawaban Anda telah direkam.</p>
+                <p class="block text-gray-600 tracking-tight">
+                    @if(session()->get('hasSuccess') == 1)
+                        <span class="block">Jawaban Anda telah direkam.</span>
+                    @elseif(session()->get('hasSuccess') == 0)
+                        <span class="block text-red-500">Anda tidak menjawab satupun pertanyaan.</span>
+                    @endif
+                </p>
             </div>
             <div>
-                <a href="{{ route('formulir.user', ['form' => session()->has('url') ? session()->get('url') : 0]) }}" class="block text-blue-500 underline tracking-tight">Kirim jawaban lainnya</a>
+                <a href="{{ route('formulir.user', ['form' => session()->has('url') ? session()->get('url') : 0]) }}" class="block text-blue-500 underline tracking-tight">
+                    @if(session()->get('hasSuccess') == 1)
+                        <span class="block">Kirim jawaban lainnya</span>
+                    @elseif(session()->get('hasSuccess') == 0)
+                        <span class="block">Kembali menjawab pertanyaan</span>
+                    @endif
+                </a>
             </div>
         </div>
     </div>

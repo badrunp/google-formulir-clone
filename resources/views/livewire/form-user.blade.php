@@ -17,7 +17,7 @@
             @endif --}}
 
             @foreach($questions as $key => $value)
-            <div class="bg-white shadow rounded-lg mt-6 py-6 px-7 border-l-4 border-transparent @error('datas.{{ $value->type}}.{{$value->id}}') border-red-500 @enderror" >
+            <div class="bg-white shadow rounded-lg mt-6 py-6 px-7 border-l-4 border-transparent @error('datas' . '.' . $value->type . '.' . $value->id ) border-red-500 @enderror" >
                 @if($value->requiredfill == 1)
                     <span class="block text-red-500 text-sm mb-4 font-medium">*Wajib diisi</span>
                 @endif

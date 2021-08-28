@@ -47,7 +47,7 @@ class FormulirAnswer extends Component
 
     public function render()
     {
-        // dd($this->answers);
+        dd($this->answers);
         return view('livewire.formulir-answer')->layout('layouts.layout-app');
     }
 }
