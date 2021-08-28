@@ -9,7 +9,7 @@
                 <div class="h-auto relative" x-data>
                     <div class="flex flex-row items-center space-x-4 justify-start">
                         <div class="text-left grid place-items-center" wire:click="previous">
-                            <button @class(['text-gray-300' => $number == 1, 'cursor-text' => $number == 1, 'text-gray-600' => $number != 1])>
+                            <button @class(['text-gray-300'=> $number == 1, 'cursor-text' => $number == 1, 'text-gray-600' => $number != 1])>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                                 </svg>
@@ -20,8 +20,8 @@
                             <span class="inline-block text-base">dari</span>
                             <span class="inline-block text-base">{{ count($numbers) }}</span>
                         </div>
-                        <div class="text-left grid place-items-center" @if($number != count($numbers)) wire:click="next" @endif>
-                            <button @class(['text-gray-300' => $number == count($numbers) || count($numbers) == 0, 'cursor-text' => $number == count($numbers), 'text-gray-600' => $number != count($numbers) && count($numbers) != 0])>
+                        <div class="text-left grid place-items-center" @if($number !=count($numbers)) wire:click="next" @endif>
+                            <button @class(['text-gray-300'=> $number == count($numbers) || count($numbers) == 0, 'cursor-text' => $number == count($numbers), 'text-gray-600' => $number != count($numbers) && count($numbers) != 0])>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                 </svg>
@@ -66,13 +66,21 @@
                     @foreach($datas as $i => $value)
                     @if($value['type'] == 'singkat')
                     <div class="w-1/2">
+                        @if($value['answer'] != null)
                         <p>{{$value['answer']}}</p>
+                        @else
+                        <span class="block text-red-500 italic">Pertanyaan ini tidak dijawab</span>
+                        @endif
                     </div>
                     @endif
 
                     @if($value['type'] == 'paragraf')
                     <div>
+                        @if($value['answer'] != null)
                         <p>{{$value['answer']}}</p>
+                        @else
+                        <span class="block text-red-500 italic">Pertanyaan ini tidak dijawab</span>
+                        @endif
                     </div>
                     @endif
 
@@ -91,15 +99,29 @@
                             </div>
                             @endif
 
+                            @if($value['option_id'] != null)
                             <span class="block text-gray-600">{{ $value['option']['option'] }}</span>
+                            @else
+                            <span class="block text-red-500 italic">
+                                @if($value['type'] == 'centang')
+                                    Opsi ini tidak dipilih
+                                @else
+                                    Pertanyaan ini tidak dijawab
+                                @endif
+                            </span>
+                            @endif
                         </div>
                     </div>
                     @endif
 
                     @if($value['type'] == 'dropdown')
                     <div class="text-gray-600 mt-2">
-                        <div class="text-gray-500 border rounded py-2 px-5 w-full border-gray-300 w-max">
+                        <div class="text-gray-500 border rounded py-2 px-5 border-gray-300 w-max">
+                            @if($value['option_id'] != null)
                             {{ $value['option']['option'] }}
+                            @else
+                            <span class="block text-red-500 italic">Pertanyaan ini tidak dijawab</span>
+                            @endif
                         </div>
                     </div>
                     @endif

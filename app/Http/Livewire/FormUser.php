@@ -44,11 +44,21 @@ class FormUser extends Component
     {
         $this->form = $form;
         $this->questions = $form->questions->load('options');
+        foreach ($form->questions->load('options') as $item) {
+            if ($item->type == 'centang') {
+                foreach ($item->options as $key => $value) {
+                    $this->datas[$item->type][$item->id][$key] = null;
+                }
+            } else {
+                $this->datas[$item->type][$item->id] = null;
+            }
+        }
     }
 
 
     public function store()
     {
+        // dd($this->datas);
         if (count($this->datas) > 0) {
             $this->validate();
 
@@ -68,10 +78,10 @@ class FormUser extends Component
             $this->insertAnswers('centang', $user_id);
 
             session()->flash('hasSuccess', 1);
-        }else{
+        } else {
             session()->flash('hasSuccess', 0);
         }
-        
+
         session()->flash('send_success', $this->form->title);
         session()->flash('url', $this->form->has);
         return redirect()->route('formulir.response');
@@ -84,16 +94,14 @@ class FormUser extends Component
             foreach ($this->datas[$type] as $key => $data) {
                 if ($type == 'centang') {
                     foreach ($data as $item) {
-                        if ($item != false) {
-                            Answer::create([
-                                'answer' => null,
-                                'user_id' => $user_id,
-                                'type' => 'centang',
-                                'option_id' => $item,
-                                'question_id' => $key,
-                                'form_id' => $this->form->id
-                            ]);
-                        }
+                        Answer::create([
+                            'answer' => null,
+                            'user_id' => $user_id,
+                            'type' => 'centang',
+                            'option_id' => $item,
+                            'question_id' => $key,
+                            'form_id' => $this->form->id
+                        ]);
                     }
                 } else {
                     Answer::create([
@@ -112,6 +120,7 @@ class FormUser extends Component
 
     public function render()
     {
+        // dd($this->datas);
         return view('livewire.form-user')->layout('layouts.layout-app');
     }
 }
